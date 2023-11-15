@@ -1,67 +1,48 @@
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+import java.util.Scanner;
 
-public class App extends Application { 
-  private Label meowLabel;
-  private Label miauLabel;
-  public int x;
-  public int y;
-  public String miau;
-  private TextField meowfield;
-  private TextField miauField;
-  private Button meowButton;
-  @Override
-    public void start (Stage primaryStage){
-
-      Scene meowscene = null;
-      GridPane gridmeow= null;
-      gridmeow = new GridPane();
-      meowscene = new Scene(gridmeow);
-      meowLabel= new Label("km:");
-      miauLabel = new Label("= yards");
-      meowfield = new TextField();
-      meowfield.setEditable(true);
-      meowfield.setText("enter a value!");
-      miauField = new TextField();
-      miauField.setEditable(true);
-      miauField.setText("0");
-
-      meowButton = new Button("convert");
-      gridmeow.setPadding(new Insets (50, 50, 50, 50));
-      gridmeow.setHgap(5);
-      gridmeow.add(meowLabel, 0 , 0);
-      gridmeow.add(meowfield, 3 , 0);
-      gridmeow.add(miauField, 3, 2);
-      gridmeow.add(miauLabel, 0, 2);
-      gridmeow.add(meowButton, 0 , 5);
-
-      meowButton.setOnAction(new EventHandler<ActionEvent>() {
-        
-        @Override
-        public void handle(ActionEvent meowEvent){
-           int x;
-           int y;
-          miau = meowfield.getText();
-          x = Integer.parseInt(miau);
-          y = (int) (1093.61 * x);
-          miauField.setText(Integer.toString(y));
-        }
-      }
-      );
-      primaryStage.setScene(meowscene);
-      primaryStage.setTitle("Conversion Calculator");
-      primaryStage.show();
-    }
-    
+public class App {
     public static void main(String[] args) throws Exception {
-     launch(args);
+        String miau;
+        float x;
+        Scanner meow = new Scanner (System.in);
+        String lol = "exit";
+        System.out.println("Enter units to convert!");
+        miau = meow.nextLine();
+        while(true){
+        if(miau.equalsIgnoreCase(lol)){break;}
+
+        System.out.println("Enter a value! if you would like to exit, please type '-1'");
+
+        x = meow.nextFloat(); 
+        if (x == -1)
+        break;
+        switch(miau){
+          case "kWh = J":
+          x = 3600000*x;
+          System.out.println(x + " J");
+          break; 
+
+          case "km = yards":
+          x = (int) (1093.61 * x);
+          System.out.println (x + " yards");
+          break;
+
+          case "bar = Pascal":
+          x= 100000 * x;
+          System.out.println(x + " Pascal");
+          break;
+
+          case "degrees = Radians":
+          x= (int) (.0174533 * x);
+          System.out.println(x + "Radians");
+          break;
+
+          default:
+          System.out.println("Please enter a valid input, try again!");
+          break;
+
+        } 
+    }
+    meow.close();
 }
 }
